@@ -2,29 +2,27 @@
 
 ## Visão Geral
 
-[cite_start]Este repositório contém o desenvolvimento do projeto para a disciplina de **Teoria da Computação** [cite: 3] [cite_start]da **CESAR School** [cite: 1, 2][cite_start], ministrada pelo Prof. Daniel Bezerra[cite: 4].
+Este repositório contém o desenvolvimento do projeto para a disciplina de **Teoria da Computação** da **CESAR School**, ministrada pelo Prof. Daniel Bezerra.
 
-[cite_start]O objetivo do projeto é realizar uma análise teórica e prática detalhada sobre a complexidade de tempo de um algoritmo sorteado[cite: 8, 9]. [cite_start]O algoritmo designado para esta equipe foi o **KMP ou Rabin-Karp**, para busca de padrões em strings[cite: 29].
+O objetivo do projeto é realizar uma análise teórica e prática detalhada sobre a complexidade de tempo de um algoritmo sorteado. O algoritmo designado para esta equipe foi o **KMP ou Rabin-Karp**, para busca de padrões em strings.
 
-[cite_start]As implementações foram realizadas em **C** e **Python** para comparar a performance e analisar o comportamento do algoritmo em diferentes cenários[cite: 9].
+As implementações foram realizadas em **C** e **Python** para comparar a performance e analisar o comportamento do algoritmo em diferentes cenários.
 
 ## Equipe
 
-* [Nome do Integrante 1]
-* [Nome do Integrante 2]
-* [Nome do Integrante 3]
-* [Nome do Integrante 4]
+* Antônio Augusto de Arruda Laprovitera
+* Henrique Figuêiredo Tefile
+* Julia Torres de Barros
+* Maria Cláudia Rodrigues Corrêa de Oliveira Andrade
 
 ## Objetivos do Projeto
 
-[cite_start]Conforme a descrição do projeto[cite: 7], os principais objetivos são:
-
-1.  [cite_start]**Descrição do Algoritmo:** Apresentar o problema resolvido, a lógica geral e o pseudocódigo[cite: 10].
-2.  [cite_start]**Classificação Assintótica:** Realizar a análise de complexidade usando as notações Big-Ο, Big-Ω e Big-Θ[cite: 11].
-3.  [cite_start]**Análise de Casos:** Estudar o melhor caso, pior caso e caso médio de execução[cite: 16].
-4.  [cite_start]**Simulação Prática:** Executar o algoritmo com entradas de diferentes tamanhos (pequenas, médias, grandes) e coletar métricas de tempo de execução (média e desvio padrão)[cite: 13, 14].
-5.  [cite_start]**Análise Comparativa:** Gerar gráficos e tabelas para comparar os resultados práticos com a complexidade teórica esperada e a performance entre as linguagens C e Python[cite: 15].
-6.  [cite_start]**Reflexão Final:** Discutir se o algoritmo pertence à classe P e analisar problemas semelhantes no contexto de NP-completude[cite: 17].
+1.  **Descrição do Algoritmo:** Apresentar o problema resolvido, a lógica geral e o pseudocódigo.
+2.  **Classificação Assintótica:** Realizar a análise de complexidade usando as notações Big-Ο, Big-Ω e Big-Θ.
+3.  **Análise de Casos:** Estudar o melhor caso, pior caso e caso médio de execução.
+4.  **Simulação Prática:** Executar o algoritmo com entradas de diferentes tamanhos (pequenas, médias, grandes) e coletar métricas de tempo de execução (média e desvio padrão).
+5.  **Análise Comparativa:** Gerar gráficos e tabelas para comparar os resultados práticos com a complexidade teórica esperada e a performance entre as linguagens C e Python.
+6.  **Reflexão Final:** Discutir se o algoritmo pertence à classe P e analisar problemas semelhantes no contexto de NP-completude.
 
 ## Estrutura do Repositório
 
@@ -83,6 +81,6 @@
 
 ## Entregas
 
-* [cite_start]**Entrega 1 (Definição da Equipe):** 24/10/2025 [cite: 34]
-* [cite_start]**Entrega 2 (Projeto Final):** 30/11/2025 [cite: 37]
-* [cite_start]**Apresentações:** 01 e 10 de Dezembro de 2025 [cite: 43]
+* **Entrega 1 (Definição da Equipe):** 24/10/2025
+* **Entrega 2 (Projeto Final):** 30/11/2025
+* **Apresentações:** 01 e 10 de Dezembro de 2025
