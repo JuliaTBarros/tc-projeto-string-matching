@@ -31,8 +31,6 @@ As implementações foram realizadas em **C** e **Python** para comparar a perfo
 ├── c_implementation/           # Código-fonte da implementação em C
 ├── python_implementation/      # Código-fonte da implementação em Python
 ├── analysis_scripts/           # Scripts para automação de testes e geração de gráficos
-├── report/                     # Relatório final em PDF e materiais de apoio
-├── presentation/               # Slides da apresentação final
 └── README.md                   # Este arquivo
 ```
 
