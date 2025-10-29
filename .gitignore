@@ -1,0 +1,32 @@
+# --- Dados ---
+data/generated/
+
+# --- Python ---
+# Ignora pastas de ambiente virtual
+venv/
+*.venv/
+env/
+
+# Ignora cache do Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# --- C ---
+# Ignora arquivos de objeto compilados
+*.o
+*.obj
+
+# Ignora executáveis compilados
+# (Adicione o nome do seu executável se for diferente)
+*.out
+*.exe
+c_implementation/kmp_c
+
+# --- Outros ---
+# Ignora arquivos de configuração de IDEs comuns
+.vscode/
+.idea/
+*.swp
+*.swo
