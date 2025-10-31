@@ -55,12 +55,8 @@ void computeLPSArray(char* pattern, int M, int* lps) {
 }
 
 // 2) KMP Search Function (Iterative)
-int KMPSearch(char* pattern, char* text) {
+int KMPSearch(char* pattern, int M, char* text, int N) {
     if (!pattern || !text) return 0;
-
-    int M = (int)strlen(pattern);
-    int N = (int)strlen(text);
-
     if (M == 0 || N == 0 || M > N) return 0;
 
     int* lps = (int*)malloc(sizeof(int) * M);
@@ -99,12 +95,13 @@ int KMPSearch(char* pattern, char* text) {
 
 // 3) Main Function (Benchmark Harness)
 int main(int argc, char* argv[]) {
-    if (argc < 2) {
-        fprintf(stderr, "Usage: %s <input_file>\n", argv[0]);
+    if (argc < 3) {
+        fprintf(stderr, "Usage: %s <input_file> <needle>\n", argv[0]);
         return EXIT_FAILURE;
     }
 
     const char* filename = argv[1];
+    char* pattern = argv[2];
     FILE* fp = fopen(filename, "rb");
     if (!fp) {
         fprintf(stderr, "Error opening file '%s'\n", filename);
@@ -142,12 +139,9 @@ int main(int argc, char* argv[]) {
 
     fclose(fp);
 
-    // Define a 50-character needle (pattern). We'll take a known sentence and ensure it's 50 chars.
-    const char* src = "Call me Ishmael. Some years ago--never mind how long";
-    char pattern[51];
-    // copy at most 50 chars and null-terminate explicitly
-    strncpy(pattern, src, 50);
-    pattern[50] = '\0';
+    // Get lengths before timing (strlen on pattern is fast, N we already know)
+    int M = (int)strlen(pattern);
+    int N = (int)read_bytes;
 
     // Timing: start just before KMPSearch and end right after
     struct timespec start, end;
@@ -157,7 +151,7 @@ int main(int argc, char* argv[]) {
         return EXIT_FAILURE;
     }
 
-    int matches = KMPSearch(pattern, text);
+    int matches = KMPSearch(pattern, M, text, N);
 
     if (clock_gettime(CLOCK_MONOTONIC, &end) != 0) {
         perror("clock_gettime(end)");

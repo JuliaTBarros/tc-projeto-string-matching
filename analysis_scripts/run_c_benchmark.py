@@ -35,6 +35,14 @@ def run_benchmark():
     current_run = 0
 
     for test_type in ["real", "pior_caso"]:
+        # Define the needle pattern based on test type
+        if test_type == "real":
+            # NOTE: This must be 50 chars and exist in the 'base.txt'
+            needle = "Call me Ishmael. Some years ago--never mind how long"
+        else:
+            # 50 chars: 49 'A's followed by 1 'B'
+            needle = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB"
+
         for size in SIZES_TO_TEST:
             filename = f"{test_type}_{size}.txt"
             filepath = os.path.join(DATA_DIR, filename)
@@ -49,7 +57,7 @@ def run_benchmark():
                 current_run += 1
                 progress = (current_run / total_runs) * 100
                 
-                cmd = [EXECUTABLE, filepath]
+                cmd = [EXECUTABLE, filepath, needle]
                 try:
                     completed = subprocess.run(cmd, capture_output=True, text=True)
                 except Exception as e:
