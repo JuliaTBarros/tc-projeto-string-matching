@@ -4,6 +4,8 @@ import subprocess
 import re
 import statistics
 import sys
+import csv
+import datetime
 
 # Configuration
 EXECUTABLE = "../c_implementation/kmp_c" if os.path.basename(os.getcwd()) == "analysis_scripts" else "c_implementation/kmp_c"
@@ -120,4 +122,32 @@ if __name__ == "__main__":
 
     results = run_benchmark()
     print_results_table(results)
+    # write CSV results for inclusion in reports
+    try:
+        script_dir = os.path.dirname(__file__)
+        csv_path = os.path.join(script_dir, "benchmark_results.csv")
+        timestamp = datetime.datetime.now().isoformat()
+        with open(csv_path, "w", newline="", encoding="utf-8") as f:
+            writer = csv.writer(f)
+            # metadata rows
+            writer.writerow(["# Generated", timestamp])
+            writer.writerow(["# Executable", EXECUTABLE])
+            writer.writerow(["# NumRuns", NUM_RUNS])
+            writer.writerow([])
+            # data header
+            writer.writerow(["size", "mean_real_s", "mean_pior_s", "diff_s"])
+            for size in SIZES_TO_TEST:
+                real = results.get("real", {}).get(size)
+                pior = results.get("pior_caso", {}).get(size)
+                if real is None and pior is None:
+                    continue
+                real_v = f"{real:.6f}" if real is not None else ""
+                pior_v = f"{pior:.6f}" if pior is not None else ""
+                diff_v = ""
+                if real is not None and pior is not None:
+                    diff_v = f"{(pior - real):.6f}"
+                writer.writerow([size, real_v, pior_v, diff_v])
+        print(f"CSV salvo em: {csv_path}")
+    except Exception as e:
+        print(f"Falha ao salvar CSV: {e}")
     print("\nBenchmark concluído!")
