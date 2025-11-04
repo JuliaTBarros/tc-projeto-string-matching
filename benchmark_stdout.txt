@@ -1,36 +1,0 @@
-Iniciando benchmark KMP...
-Erro: executável não encontrado: c_implementation/kmp_c
-Compilando o programa C...
-Compilação concluída com sucesso.
-Progresso: 2.0% - real 100kb (run 1/5): 0.000437sProgresso: 4.0% - real 100kb (run 2/5): 0.000189sProgresso: 6.0% - real 100kb (run 3/5): 0.000259sProgresso: 8.0% - real 100kb (run 4/5): 0.000265sProgresso: 10.0% - real 100kb (run 5/5): 0.000376s
-Resultado 100kb (real): média=0.000305s, amostras=5
-Progresso: 12.0% - real 500kb (run 1/5): 0.000963sProgresso: 14.0% - real 500kb (run 2/5): 0.001087sProgresso: 16.0% - real 500kb (run 3/5): 0.001138sProgresso: 18.0% - real 500kb (run 4/5): 0.001009sProgresso: 20.0% - real 500kb (run 5/5): 0.000956s
-Resultado 500kb (real): média=0.001031s, amostras=5
-Progresso: 22.0% - real 5mb (run 1/5): 0.013087sProgresso: 24.0% - real 5mb (run 2/5): 0.012358sProgresso: 26.0% - real 5mb (run 3/5): 0.011718sProgresso: 28.0% - real 5mb (run 4/5): 0.011704sProgresso: 30.0% - real 5mb (run 5/5): 0.010677s
-Resultado 5mb (real): média=0.011909s, amostras=5
-Progresso: 32.0% - real 10mb (run 1/5): 0.024494sProgresso: 34.0% - real 10mb (run 2/5): 0.023665sProgresso: 36.0% - real 10mb (run 3/5): 0.021104sProgresso: 38.0% - real 10mb (run 4/5): 0.024946sProgresso: 40.0% - real 10mb (run 5/5): 0.022487s
-Resultado 10mb (real): média=0.023339s, amostras=5
-Progresso: 42.0% - real 50mb (run 1/5): 0.120045sProgresso: 44.0% - real 50mb (run 2/5): 0.131013sProgresso: 46.0% - real 50mb (run 3/5): 0.116910sProgresso: 48.0% - real 50mb (run 4/5): 0.123757sProgresso: 50.0% - real 50mb (run 5/5): 0.137791s
-Resultado 50mb (real): média=0.125903s, amostras=5
-Progresso: 52.0% - pior_caso 100kb (run 1/5): 0.000241sProgresso: 54.0% - pior_caso 100kb (run 2/5): 0.000217sProgresso: 56.0% - pior_caso 100kb (run 3/5): 0.000235sProgresso: 58.0% - pior_caso 100kb (run 4/5): 0.000237sProgresso: 60.0% - pior_caso 100kb (run 5/5): 0.000226s
-Resultado 100kb (pior_caso): média=0.000231s, amostras=5
-Progresso: 62.0% - pior_caso 500kb (run 1/5): 0.001244sProgresso: 64.0% - pior_caso 500kb (run 2/5): 0.001246sProgresso: 66.0% - pior_caso 500kb (run 3/5): 0.001512sProgresso: 68.0% - pior_caso 500kb (run 4/5): 0.001216sProgresso: 70.0% - pior_caso 500kb (run 5/5): 0.001075s
-Resultado 500kb (pior_caso): média=0.001259s, amostras=5
-Progresso: 72.0% - pior_caso 5mb (run 1/5): 0.012569sProgresso: 74.0% - pior_caso 5mb (run 2/5): 0.011846sProgresso: 76.0% - pior_caso 5mb (run 3/5): 0.013432sProgresso: 78.0% - pior_caso 5mb (run 4/5): 0.011579sProgresso: 80.0% - pior_caso 5mb (run 5/5): 0.013359s
-Resultado 5mb (pior_caso): média=0.012557s, amostras=5
-Progresso: 82.0% - pior_caso 10mb (run 1/5): 0.023877sProgresso: 84.0% - pior_caso 10mb (run 2/5): 0.024658sProgresso: 86.0% - pior_caso 10mb (run 3/5): 0.024008sProgresso: 88.0% - pior_caso 10mb (run 4/5): 0.023709sProgresso: 90.0% - pior_caso 10mb (run 5/5): 0.023782s
-Resultado 10mb (pior_caso): média=0.024007s, amostras=5
-Progresso: 92.0% - pior_caso 50mb (run 1/5): 0.120484sProgresso: 94.0% - pior_caso 50mb (run 2/5): 0.119175sProgresso: 96.0% - pior_caso 50mb (run 3/5): 0.118197sProgresso: 98.0% - pior_caso 50mb (run 4/5): 0.119608sProgresso: 100.0% - pior_caso 50mb (run 5/5): 0.122145s
-Resultado 50mb (pior_caso): média=0.119922s, amostras=5
-
-Resultados Finais:
-Tamanho | Caso Real     | Pior Caso    | Diferença
---------+---------------+--------------+-----------
-100kb   | 0.000305s     | 0.000231s    | -0.000074s
-500kb   | 0.001031s     | 0.001259s    | +0.000228s
-5mb     | 0.011909s     | 0.012557s    | +0.000648s
-10mb    | 0.023339s     | 0.024007s    | +0.000668s
-50mb    | 0.125903s     | 0.119922s    | -0.005981s
-CSV salvo em: C:\Users\Administrador\Desktop\tc-projeto-string-matching\analysis_scripts\benchmark_results.csv
-
-Benchmark concluído!

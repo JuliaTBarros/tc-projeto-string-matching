@@ -1,6 +1,9 @@
 # --- Dados ---
 data/generated/
 
+# --- Resultados de Análise ---
+analysis_scripts/*.csv
+
 # --- Python ---
 # Ignora pastas de ambiente virtual
 venv/
