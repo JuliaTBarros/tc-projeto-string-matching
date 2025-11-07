@@ -17,7 +17,7 @@ else:
 EXECUTABLE = [sys.executable, PY_SCRIPT_PATH]
 
 SIZES_TO_TEST = ["100kb", "500kb", "5mb", "10mb", "50mb"]
-NUM_RUNS = 5
+NUM_RUNS = 30
 CSV_OUTPUT_FILE = "benchmark_results_py.csv" 
 
 

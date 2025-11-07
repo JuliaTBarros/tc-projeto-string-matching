@@ -30,8 +30,16 @@ As implementações foram realizadas em **C** e **Python** para comparar a perfo
 .
 ├── c_implementation/           # Código-fonte da implementação em C
 ├── python_implementation/      # Código-fonte da implementação em Python
-├── analysis_scripts/           # Scripts para automação de testes e geração de gráficos
-└── README.md                   # Este arquivo
+├── analysis_scripts/          # Scripts para automação de testes e geração de gráficos
+│   ├── benchmark_results.csv  # Resultados dos benchmarks em C
+│   ├── benchmark_results_py.csv # Resultados dos benchmarks em Python
+│   ├── plot_results.py       # Script para gerar gráficos comparativos
+│   ├── run_c_benchmark.py    # Script para executar testes em C
+│   └── run_py_benchmark.py   # Script para executar testes em Python
+├── data/                     # Diretório de dados para testes
+│   ├── base.txt             # Arquivo base para geração de casos de teste
+│   └── generated/           # Arquivos de teste gerados
+└── README.md                # Este arquivo
 ```
 
 ## Como Executar
@@ -40,7 +48,10 @@ As implementações foram realizadas em **C** e **Python** para comparar a perfo
 
 * Compilador C (GCC ou Clang)
 * Python 3.x
-* Bibliotecas Python (ex: `matplotlib`, `pandas` - a serem especificadas)
+* Bibliotecas Python:
+  * matplotlib
+  * pandas (para análise de dados)
+  * numpy (para cálculos estatísticos)
 
 ### Implementação em C
 

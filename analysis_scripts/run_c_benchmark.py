@@ -11,7 +11,7 @@ import datetime
 EXECUTABLE = "../c_implementation/kmp_c" if os.path.basename(os.getcwd()) == "analysis_scripts" else "c_implementation/kmp_c"
 SIZES_TO_TEST = ["100kb", "500kb", "5mb", "10mb", "50mb"]
 DATA_DIR = os.path.join("..", "data", "generated") if os.path.basename(os.getcwd()) == "analysis_scripts" else "data/generated"
-NUM_RUNS = 5
+NUM_RUNS = 30
 
 
 def run_benchmark():
