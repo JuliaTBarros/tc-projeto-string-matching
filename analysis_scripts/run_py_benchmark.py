@@ -76,8 +76,13 @@ def run_benchmark():
 
             if run_times:
                 avg_time = statistics.mean(run_times)
-                results[test_type][size] = avg_time
-                print(f"\nResultado {size} ({test_type}): média={avg_time:.6f}s, amostras={len(run_times)}")
+                # CALCULA O DESVIO-PADRÃO: Adicionado
+                stdev_time = statistics.stdev(run_times) if len(run_times) > 1 else 0.0
+
+                # ARMAZENA MEAN E STDEV: Modificado
+                results[test_type][size] = {"mean": avg_time, "stdev": stdev_time}
+                
+                print(f"\nResultado {size} ({test_type}): média={avg_time:.6f}s, stdev={stdev_time:.6f}s, amostras={len(run_times)}")
             else:
                 print(f"\nNenhuma execução bem-sucedida para {filename}")
 
@@ -85,8 +90,8 @@ def run_benchmark():
 
 
 def print_results_table(results):
-    header = "Tamanho | Caso Real     | Pior Caso    | Diferença"
-    sep =    "--------+---------------+--------------+-----------"
+    header = "Tamanho | Caso Real (M/D)    | Pior Caso (M/D)   | Diferença"
+    sep =    "--------+--------------------+-------------------+-----------"
     print("\nResultados Finais (Python):")
     print(header)
     print(sep)
@@ -95,16 +100,23 @@ def print_results_table(results):
         real = results.get("real", {}).get(size)
         pior = results.get("pior_caso", {}).get(size)
 
-        real_str = f"{real:.6f}s" if real is not None else "-"
-        pior_str = f"{pior:.6f}s" if pior is not None else "-"
+        # Extrai a média (M) e o desvio-padrão (D)
+        real_m = real.get('mean') if real else None
+        real_d = real.get('stdev') if real else None
+        pior_m = pior.get('mean') if pior else None
+        pior_d = pior.get('stdev') if pior else None
+        
+        # Formata a string de saída
+        real_str = f"{real_m:.4f}±{real_d:.4f}s" if real_m is not None else "-"
+        pior_str = f"{pior_m:.4f}±{pior_d:.4f}s" if pior_m is not None else "-"
         
         if real is not None and pior is not None:
-            diff = pior - real
+            diff = pior_m - real_m
             diff_str = f"{diff:+.6f}s"
         else:
             diff_str = "-"
 
-        print(f"{size:7} | {real_str:13} | {pior_str:12} | {diff_str:9}")
+        print(f"{size:7} | {real_str:19} | {pior_str:17} | {diff_str:9}")
 
 
 if __name__ == "__main__":
@@ -128,20 +140,30 @@ if __name__ == "__main__":
             writer.writerow(["# Executable", " ".join(EXECUTABLE)])
             writer.writerow(["# NumRuns", NUM_RUNS])
             writer.writerow([])
-            writer.writerow(["size", "mean_real_s", "mean_pior_s", "diff_s"])
+            writer.writerow(["size", "mean_real_s", "stdev_real_s", "mean_pior_s", "stdev_pior_s", "diff_s"])
             for size in SIZES_TO_TEST:
                 real = results.get("real", {}).get(size)
                 pior = results.get("pior_caso", {}).get(size)
                 if real is None and pior is None:
                     continue
                 
-                real_v = f"{real:.6f}" if real is not None else ""
-                pior_v = f"{pior:.6f}" if pior is not None else ""
+                # Extrai média e stdev do novo formato de dicionário
+                real_m = real['mean'] if real is not None else None
+                real_s = real['stdev'] if real is not None else None
+                pior_m = pior['mean'] if pior is not None else None
+                pior_s = pior['stdev'] if pior is not None else None
+                
+                real_v = f"{real_m:.6f}" if real_m is not None else ""
+                real_s_v = f"{real_s:.6f}" if real_s is not None else ""
+                pior_v = f"{pior_m:.6f}" if pior_m is not None else ""
+                pior_s_v = f"{pior_s:.6f}" if pior_s is not None else ""
+                
                 diff_v = ""
-                if real is not None and pior is not None:
-                    diff_v = f"{(pior - real):.6f}"
+                if real_m is not None and pior_m is not None:
+                    diff_v = f"{(pior_m - real_m):.6f}"
                     
-                writer.writerow([size, real_v, pior_v, diff_v])
+                # Escreve a linha de dados: MODIFICADO para incluir 4 colunas de tempo
+                writer.writerow([size, real_v, real_s_v, pior_v, pior_s_v, diff_v])
                 
         print(f"CSV salvo em: {csv_path}")
     except Exception as e:
