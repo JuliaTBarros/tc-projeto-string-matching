@@ -4,7 +4,7 @@
 
 Este repositório contém o desenvolvimento do projeto para a disciplina de **Teoria da Computação** da **CESAR School**, ministrada pelo Prof. Daniel Bezerra.
 
-O objetivo do projeto é realizar uma análise teórica e prática detalhada sobre a complexidade de tempo de um algoritmo sorteado. O algoritmo designado para esta equipe foi o **KMP ou Rabin-Karp**, para busca de padrões em strings.
+O objetivo do projeto é realizar uma análise teórica e prática detalhada sobre a complexidade de tempo de um algoritmo sorteado. O algoritmo designado para esta equipe foi o **KMP**, para busca de padrões em strings.
 
 As implementações foram realizadas em **C** e **Python** para comparar a performance e analisar o comportamento do algoritmo em diferentes cenários.
 
