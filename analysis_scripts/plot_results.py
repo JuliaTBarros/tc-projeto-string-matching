@@ -66,6 +66,7 @@ def load_data():
 def plot_teorica_vs_pratica(df):
     """
     Gera o gráfico de análise da complexidade teórica (Python e C) com barras de erro.
+    Utiliza escala logarítmica para melhor visualização de C.
     
     O algoritmo KMP tem complexidade O(N+M), que é dominada pelo tamanho do texto (N).
     A curva teórica é plotada como C * N, onde C é uma constante ARBITRÁRIA.
@@ -73,18 +74,17 @@ def plot_teorica_vs_pratica(df):
     
     # 1. Definição da Curva Teórica - CONSTANTE ARBITRÁRIA (NÃO ajustada aos dados)
     # Esta constante deve ser escolhida de forma independente dos dados medidos
-    # Vamos usar uma constante que represente um processamento ideal hipotético
     CONSTANTE_ESCALA_TEORICA = 5.0e-8  # 50 nanossegundos por byte (arbitrário)
     curva_teorica = df['size_bytes'] * CONSTANTE_ESCALA_TEORICA 
     
     # 2. Definição da Figura e Eixos
     fig, ax = plt.subplots(figsize=(12, 7))
     x_labels = df['size']
-    x_bytes = df['size_bytes']
+    x_ticks = np.arange(len(x_labels))  # Posições numéricas para o eixo X
     
     # 3. Plotagem do Pior Caso Medido (Python) com Barras de Erro
     ax.errorbar(
-        x_bytes, 
+        x_ticks, 
         df['Python_Pior'], 
         yerr=df['stdev_pior_s_py'],
         fmt='-o', 
@@ -98,7 +98,7 @@ def plot_teorica_vs_pratica(df):
     
     # 4. Plotagem da Curva Teórica (Com a constante arbitrária)
     ax.plot(
-        x_bytes, 
+        x_ticks, 
         curva_teorica, 
         '--', 
         color='green',
@@ -106,73 +106,9 @@ def plot_teorica_vs_pratica(df):
         label='Complexidade Teórica $O(N)$'
     )
 
-    # 5. Decisão sobre plotar C no mesmo gráfico ou separado
-    c_max = df['C_Pior'].max()
-    py_min = df['Python_Pior'].min()
-    
-    # Se C for muito menor (menos de 5% do mínimo de Python), fazer gráfico separado
-    if c_max < py_min * 0.05:
-        print("\n[INFO] C é muito mais rápido que Python. Gerando gráfico teórico C em separado.")
-        plot_teorica_vs_pratica_c(df, CONSTANTE_ESCALA_TEORICA)
-        ax.text(0.98, 0.02, 
-                'Nota: Dados de C plotados em gráfico separado\ndevido à diferença de escala',
-                transform=ax.transAxes,
-                fontsize=10,
-                verticalalignment='bottom',
-                horizontalalignment='right',
-                bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
-    else:
-        # Plota C no mesmo gráfico
-        ax.errorbar(
-            x_bytes, 
-            df['C_Pior'], 
-            yerr=df['stdev_pior_s_c'],
-            fmt='-^', 
-            color='#0077b6',
-            capsize=5,
-            markersize=8,
-            linewidth=2,
-            elinewidth=1.5,
-            label='C - Pior Caso Medido'
-        )
-    
-    # 6. Configuração Final
-    ax.set_title('Análise Teórica vs. Prática (Pior Caso)', fontsize=16, fontweight='bold')
-    ax.set_xlabel('Tamanho da Entrada (N em Bytes)', fontsize=14)
-    ax.set_ylabel('Tempo de Execução (Segundos)', fontsize=14)
-    
-    ax.set_xticks(x_bytes)
-    ax.set_xticklabels(x_labels, rotation=45, ha='right')
-    
-    ax.legend(fontsize=12, loc='upper left')
-    ax.grid(True, linestyle='--', alpha=0.7)
-    plt.tight_layout()
-    plt.savefig("analysis_teorica_vs_pratica.png", dpi=300)
-    print("\nGráfico de Análise Teórica (Python) salvo como: analysis_teorica_vs_pratica.png")
-
-def plot_teorica_vs_pratica_c(df, constante_escala):
-    """
-    Gera um gráfico separado para C e Teórico, pois C é muito mais rápido que Python.
-    """
-    fig, ax = plt.subplots(figsize=(12, 7))
-    x_labels = df['size']
-    x_bytes = df['size_bytes']
-    
-    # Curva Teórica (usando a mesma constante de escala)
-    curva_teorica = df['size_bytes'] * constante_escala
-    
-    ax.plot(
-        x_bytes, 
-        curva_teorica, 
-        '--',
-        color='green',
-        linewidth=2.5,
-        label='Complexidade Teórica $O(N)$'
-    )
-    
-    # Pior Caso Medido (C) com Barras de Erro
+    # 5. Plotagem de C com Barras de Erro
     ax.errorbar(
-        x_bytes, 
+        x_ticks, 
         df['C_Pior'], 
         yerr=df['stdev_pior_s_c'],
         fmt='-^', 
@@ -183,20 +119,26 @@ def plot_teorica_vs_pratica_c(df, constante_escala):
         elinewidth=1.5,
         label='C - Pior Caso Medido'
     )
-
-    ax.set_title('Análise Teórica vs. Prática para C (Pior Caso)', 
-                 fontsize=16, fontweight='bold')
-    ax.set_xlabel('Tamanho da Entrada (N em Bytes)', fontsize=14)
-    ax.set_ylabel('Tempo de Execução (Segundos)', fontsize=14)
     
-    ax.set_xticks(x_bytes)
+    # 6. Escala Logarítmica no Eixo Y (para visualizar C adequadamente)
+    ax.set_yscale('log')
+    
+    # 7. Configuração Final
+    ax.set_title('Análise Teórica vs. Prática (Pior Caso) - Escala Logarítmica', 
+                 fontsize=16, fontweight='bold')
+    ax.set_xlabel('Tamanho da Entrada (N)', fontsize=14)
+    ax.set_ylabel('Tempo de Execução (Segundos - Escala Log)', fontsize=14)
+    
+    # Configuração do eixo X com labels corretos
+    ax.set_xticks(x_ticks)
     ax.set_xticklabels(x_labels, rotation=45, ha='right')
     
     ax.legend(fontsize=12, loc='upper left')
-    ax.grid(True, linestyle='--', alpha=0.7)
+    ax.grid(True, linestyle='--', alpha=0.7, which='both')  # Grid para escala log
     plt.tight_layout()
-    plt.savefig("analysis_teorica_vs_pratica_C_separado.png", dpi=300)
-    print("Gráfico de Análise Teórica (C separado) salvo como: analysis_teorica_vs_pratica_C_separado.png")
+    plt.savefig("analysis_teorica_vs_pratica.png", dpi=300)
+    print("\nGráfico de Análise Teórica salvo como: analysis_teorica_vs_pratica.png")
+    print("[INFO] Todas as curvas (C, Python, Teórica) estão no mesmo gráfico com escala logarítmica.")
 
 # ----------------------------------------------------------------------
 # GRÁFICO 2: COMPARAÇÃO GERAL (C e Python Juntos - Escala Logarítmica)
@@ -258,7 +200,7 @@ def main():
         print("\n=== Dados carregados ===")
         print(df[['size', 'C_Pior', 'Python_Pior', 'stdev_pior_s_c', 'stdev_pior_s_py']])
         
-        # 1. Gráfico Teórico (Prova a Complexidade)
+        # 1. Gráfico Teórico (Prova a Complexidade) - AGORA COM ESCALA LOG
         plot_teorica_vs_pratica(df) 
         
         # 2. Gráfico Logarítmico (Compara C e Python juntos)
@@ -266,10 +208,8 @@ def main():
         
         print("\n*** Gráficos gerados com sucesso! ***")
         print("Verifique os arquivos:")
-        print("  - analysis_teorica_vs_pratica.png")
+        print("  - analysis_teorica_vs_pratica.png (Escala Logarítmica)")
         print("  - comparison_log_scale.png")
-        if df['C_Pior'].max() < df['Python_Pior'].min() * 0.05:
-            print("  - analysis_teorica_vs_pratica_C_separado.png")
             
     except Exception as e:
         print(f"\nOcorreu um erro durante a plotagem: {e}")
