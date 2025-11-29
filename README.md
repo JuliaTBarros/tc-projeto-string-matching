@@ -53,64 +53,118 @@ As implementações foram realizadas em **C** e **Python** para comparar a perfo
   - pandas (para análise de dados)
   - numpy (para cálculos estatísticos)
 
-### Implementação em C
+### 1. Geração de Dados de Teste
+
+Antes de executar qualquer benchmark, é necessário gerar os arquivos de dados. O script `gerar_dados.py` está localizado na raiz do repositório.
+
+1. **Crie o arquivo base (`data/base.txt`):**
+   O script precisa de um arquivo de texto inicial para gerar os casos de teste do tipo "Caso Real".
+
+   - Crie um arquivo chamado `base.txt` dentro da pasta `data/`.
+   - O arquivo deve ser texto puro (UTF-8) e ter algum conteúdo (alguns parágrafos de Lorem Ipsum ou um livro de domínio público funcionam bem).
+   - Exemplo rápido de criação (se não tiver um arquivo pronto):
+     Crie o arquivo `data/base.txt` e cole o seguinte texto repetidas vezes até ter alguns KB:
+     > "Call me Ishmael. Some years ago--never mind how long precisely--having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world."
+
+2. **Execute o script gerador:**
+   A partir da raiz do projeto, execute:
+
+   ```bash
+   python gerar_dados.py
+   ```
+
+   Isso criará a pasta `data/generated` com arquivos de teste de 100KB a 50MB.
+
+### 2. Implementação em C
 
 1. Navegue até o diretório `c_implementation`:
 
-    ```bash
-    cd c_implementation
-    ```
+   ```bash
+   cd c_implementation
+   ```
 
 2. Compile o programa (exemplo usando GCC):
 
-    ```bash
-    gcc -o kmp_c main.c -O2
-    ```
+   ```bash
+   gcc -o kmp_c main.c -O2
+   ```
 
-    _Nota: No Windows, isso gerará um arquivo `kmp_c.exe`._
+   _Nota: No Windows, isso gerará um arquivo `kmp_c.exe`._
 
-3. Execute o programa:
+3. Execute o programa manualmente (teste unitário):
 
-    - **Linux/macOS:**
+   - **Linux/macOS:**
 
-      ```bash
-      ./kmp_c ../data/base.txt "padrao"
-      ```
+     ```bash
+     ./kmp_c ../data/base.txt "padrao"
+     ```
 
-    - **Windows (CMD/PowerShell):**
+   - **Windows (CMD/PowerShell):**
 
-      ```cmd
-      kmp_c.exe ..\data\base.txt "padrao"
-      ```
+     ```cmd
+     kmp_c.exe ..\data\base.txt "padrao"
+     ```
 
-    _(Certifique-se de fornecer o caminho correto para o arquivo de texto e o padrão que deseja buscar)_
-
-### Implementação em Python
+### 3. Implementação em Python
 
 1. Navegue até o diretório `python_implementation`:
 
-    ```bash
-    cd python_implementation
-    ```
+   ```bash
+   cd python_implementation
+   ```
 
 2. (Opcional, mas recomendado) Crie e ative um ambiente virtual:
 
-    ```bash
-    python -m venv venv
-    source venv/bin/activate  # No Windows: venv\Scripts\activate
-    ```
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # No Windows: venv\Scripts\activate
+   ```
 
 3. Instale as dependências:
 
-    ```bash
-    pip install -r requirements.txt
-    ```
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-4. Execute o script:
+4. Execute o script manualmente:
 
-    ```bash
-    python main.py <arquivo_texto> <padrão_busca>
-    ```
+   ```bash
+   python main.py <arquivo_texto> <padrão_busca>
+   ```
+
+### 4. Execução dos Benchmarks e Análise
+
+Para reproduzir os resultados e gerar os gráficos:
+
+1. Navegue até a pasta de scripts:
+
+   ```bash
+   cd analysis_scripts
+   ```
+
+2. Execute o benchmark da implementação em C:
+
+   ```bash
+   python run_c_benchmark.py
+   ```
+
+   _Isso gerará o arquivo `benchmark_results.csv`._
+
+3. Execute o benchmark da implementação em Python:
+
+   ```bash
+   python run_py_benchmark.py
+   ```
+
+   _Isso gerará o arquivo `benchmark_results_py.csv`._
+
+4. Gere os gráficos comparativos:
+
+   ```bash
+   python plot_results.py
+   ```
+
+   _Isso gerará as imagens `analysis_teorica_vs_pratica.png` e `comparison_log_scale.png`._
 
 ## Entregas
 
